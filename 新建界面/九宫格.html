@@ -1,0 +1,335 @@
+<!doctype html>
+    <html class="no-js fixed-layout">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Sudoku</title>
+        <meta name="description" content="这是一个 index 页面">
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+        <link rel="stylesheet" href="assets/css/admin.css">
+        <link rel="stylesheet" href="assets/css/sudoku.css">
+        <link rel="stylesheet" href="assets/css/sample.css">
+        <link rel="stylesheet" href="assets/css/jquery.gridly.css">
+
+		
+	<script type="text/javascript">
+		var brick;
+		brick = "<div class='brick small'><div class='delete'>&times;</div></div>";
+
+		var allowDrop = function (event) {
+			console.log("allowDrop");
+			event.preventDefault();
+		}
+
+		var drag = function (event) {
+			console.log("ondragstart");
+			event.dataTransfer.setData("Text", ev.target.id);
+		}
+
+		var drop = function (event) {
+			console.log("drop");
+			event.preventDefault();
+			var data = event.dataTransfer.getData("Text");
+			//console.log(data);
+
+			var brick;
+			//brick = "<div class='brick small'> <div><p id='status'>Waiting for input</p></div><div><p id='mmmmmm'>实时天气:</p></div><img id='wether01' class='aaa' src='" + data + "' /><div class='delete'>&times;</div></div>";
+			brick = "<div class='brick small'><a class='delete' href='#'>&times;</a></div>";
+			$('.gridly').append(brick);
+
+			return $('.gridly').gridly();
+			//ev.target.appendChild(document.getElementById(data));
+		}
+    </script>
+		
+    </head>
+    <body>
+    <!--[if lte IE 9]>
+    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+        以获得更好的体验！</p>
+    <![endif]-->
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <strong>Amaze UI</strong> <small>九宫格</small>
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}">
+            <span class="am-sr-only">导航切换</span>
+            <span class="am-icon-bars"></span>
+        </button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                        <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                        <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                    </ul>
+                </li>
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="am-cf admin-main">
+        <!--侧边栏-->
+        <div class="menu-wrap" id="menu-list">
+            <div class="library-section" role="tablist" >
+                <h2 data-am-collapse="{target: '#list1'}">
+                    图像
+                    <span class="am-icon-angle-right am-fr am-margin-right"></span>
+                </h2>
+				
+                <div class="library-content" role="tabpanel" >
+                    <ul class="am-list am-collapse admin-sidebar-list am-in" id="list1">
+                        <div class="library-module dragicon"  draggable="true"  ondragstart="drag(event)" >
+                            <div class="serv-img module-icon-image-cam isNative " style="padding-left: 10px"></div>
+                            <h3 class="serv-name" title="image/cam">cam</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-paint isNative"></div>
+                            <h3 class="serv-name" title="image/paint">paint</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-transform isNative"></div>
+                            <h3 class="serv-name" title="image/transform">transform</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-fit isNative"></div>
+                            <h3 class="serv-name" title="image/fit">fit</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-crop isNative"></div>
+                            <h3 class="serv-name" title="image/crop">crop</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-rectangle isNative"></div>
+                            <h3 class="serv-name" title="image/rectangle">rectanle</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-circle isNative"></div>
+                            <h3 class="serv-name" title="image/circle">circle</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-triangle isNative"></div>
+                            <h3 class="serv-name" title="image/triangle">triangle</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-text isNative"></div>
+                            <h3 class="serv-name" title="image/text">text</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-video-player isNative"></div>
+                            <h3 class="serv-name" title="image/video">video</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-in isNative"></div>
+                            <h3 class="serv-name" title="image/image">image</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-layers isNative"></div>
+                            <h3 class="serv-name" title="image/layers">layers</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-mapper isNative"></div>
+                            <h3 class="serv-name" title="image/mapper">mapper</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-variable-animation isNative"></div>
+                            <h3 class="serv-name" title="image/animation">animation</h3>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="library-section" role="tablist">
+                <h2 data-am-collapse="{target: '#list2'}">
+                    工具
+                    <span class="am-icon-angle-right am-fr am-margin-right"></span>
+                </h2>
+                <div class="library-content" role="tabpanel" style="display:block" >
+                    <ul class="am-list am-collapse admin-sidebar-list" id="list2">
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-util-stats isNative"></div>
+                            <h3 class="serv-name" title="image/stats">stats.js</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-image-palette isNative"></div>
+                            <h3 class="serv-name" title="image/palette">palette</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-util-color-hsla isNative"></div>
+                            <h3 class="serv-name" title="image/color-hsla">color-hsla</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-util-math isNative"></div>
+                            <h3 class="serv-name" title="image/math">math</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-util-logic isNative"></div>
+                            <h3 class="serv-name" title="image/logic">logic</h3>
+                        </div>
+                        <div class="library-module ">
+                            <div class="serv-img module-icon-file-webm isNative"></div>
+                            <h3 class="serv-name" title="image/webm">webm</h3>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="library-section" role="tablist">
+                <h2 data-am-collapse="{target: '#list3'}">
+                    时间
+                    <span class="am-icon-angle-right am-fr am-margin-right"></span>
+                </h2>
+                <div class="library-content brick" role="tabpanel" style="display:block" >
+                        <ul class="am-list am-collapse admin-sidebar-list" id="list3">
+                            <div class="library-module ">
+                                <div class="serv-img module-icon-time-tween isNative"></div>
+                                <h3 class="serv-name" title="image/tween">tween</h3>
+                            </div>
+                            <div class="library-module ">
+                                <div class="serv-img module-icon-time-countdown isNative"></div>
+                                <h3 class="serv-name" title="image/countdown">countdown</h3>
+                            </div>
+                            <div class="library-module ">
+                                <div class="serv-img module-icon-time-metronome isNative"></div>
+                                <h3 class="serv-name" title="image/metronome">metronome</h3>
+                            </div>
+                        </ul>
+                    </div>
+            </div>
+            <button class="close-button brick" id="close-button">Close Menu</button>
+        </div>
+            <button class="menu-button" id="open-button">Open Menu</button>
+
+        <!--九宫格布局-->
+        <div class="admin-content">
+		
+            <div class="admin-content-body"  ondrop="drop(event)" ondragover="allowDrop(event)">
+				      <section class='example'>
+				        <div class='gridly'>
+							  <div class='brick small'>
+							  <embed src="http://player.youku.com/player.php/sid/XMzI2NTc4NTMy/v.swf" 
+width="200" height="200" 
+type="application/x-shockwave-flash">
+</embed>
+<!-- <video width="200" height="200" controls="controls">
+  <source src="movie.mp4" type="video/mp4" />
+  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.webm" type="video/webm" />
+  <object data="movie.mp4" width="320" height="240">
+    <embed src="http://player.youku.com/player.php/sid/XMzI2NTc4NTMy/v.swf" width="320" height="240" />
+  </object>
+</video>
+			 -->					<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+<img id="tariff_query" class="aaa"  src="assets/image/bill.jpg" />
+<div id="tariffresult" >
+<h5>Cost     : $20</h5>
+<h5>Discount : 85%</h5>
+<h5>Total    : $17</h5>
+</div>
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+ <h4>一个无序列表：</h4>
+<ul>
+  <li>咖啡</li>
+  <li>茶</li>
+  <li>牛奶</li>
+</ul>
+
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+<p>有序列表：</p>
+<ol>
+  <li>打开冰箱门</li>
+  <li>把大象放进去</li>
+  <li>关上冰箱门</li>
+</ol>
+
+<p>无序列表：</p>
+<ul>
+  <li>雪碧</li>
+  <li>可乐</li>
+  <li>凉茶</li>
+</ul>
+
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+							  <div class='brick small'>
+								<a class='delete' href='#'>&times;</a>
+							  </div>
+
+					</div>
+       
+      </section>
+
+            </div>
+
+
+
+            <!--<footer class="admin-content-footer">-->
+                <!--<hr>-->
+                <!--<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>-->
+            <!--</footer>-->
+        </div>
+        <!-- content end -->
+
+    </div>
+
+    <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="/js/amazeui.ie8polyfill.min.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="assets/js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/menu.js"></script>
+    <!-- <script src="assets/js/gridly.js"></script> -->
+    <!-- <script src="assets/js/jquery.gridly.js"></script> -->
+    <!-- <script src="assets/js/gridbrick.js"></script> -->
+	
+	  <link href='assets/css/jquery.gridly.css' rel='stylesheet' type='text/css'>
+      <!-- <link href='assets/css/sample.css' rel='stylesheet' type='text/css'> -->
+      <!-- <script src='assets/javascripts/jquery.js' type='text/javascript'></script> -->
+      <script src='assets/javascripts/jquery.gridly.js' type='text/javascript'></script>
+      <script src='assets/javascripts/sample.js' type='text/javascript'></script>
+      <!-- <script src='assets/javascripts/littletrick.js' type='text/javascript'></script> -->
+     
+	
+    </body>
+    </html>
+
